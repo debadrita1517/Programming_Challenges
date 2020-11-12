@@ -1,1 +1,1 @@
-# Programming_Challenges
+# Competitive Programming Challenges

@@ -32,7 +32,7 @@ secret.length == guess.length
 secret and guess consist of digits only.
 */
 
-
+//the code
 import java.util.*;
 public class BullsAndCows
 {

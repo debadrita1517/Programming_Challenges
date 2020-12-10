@@ -36,8 +36,16 @@ public class ValidMountainArray
 				}
 				else if(arr[i]<arr[i-1])
 				{
-					j=i;
-					break;
+					if(i==1)
+					{
+						flag=false;
+						break;
+					}
+					else
+					{
+						j=i;
+						break;
+					}
 				}
 			}
 			if(j>0)

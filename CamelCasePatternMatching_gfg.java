@@ -24,40 +24,64 @@ Output:
 No match found
 WelcomeToGeeksForGeeks
 */
+import java.lang.*;
+import java.io.*;
 import java.util.*;
-public class gfg
-{
-    public static void main(String[] args)
+class GFG {
+    public static void main (String[] args)
     {
-        Scanner sc=new Scanner(System.in);
+
+        Scanner sc = new Scanner(System.in);
         int t=sc.nextInt();
-        while(t-->0)
-        {
-            int n=sc.nextInt();
-            ArrayList<String> words=new ArrayList<String>();
-            for(int i=0;i<n;i++)
-                words.add(sc.next());
-            String pattern=sc.next().toUpperCase();
-            System.out.println(calc(words,pattern,n));
-        }
-        sc.close();
-    }
-    public static String calc(ArrayList<String> words,String pattern,int n)
-    {
-        HashMap<String,String> map=new HashMap<String,String>();
-        for(int i=0;i<n;i++)
-        {
-            String item="";
-            for(int j=0;j<words.get(i).length();j++)
-            {
-                if((int)words.get(i).charAt(j)>=65&&(int)words.get(i).charAt(j)<=90)
-                    item+=words.get(i).charAt(j);
+        while(t-->0) {
+            int n =sc.nextInt();
+            Map<String,List<Character>> map = new HashMap<String, List<Character>>();
+            List<String> set = new ArrayList<String>();
+            for(int i=0;i<n;i++) { 
+                String s=sc.next(); 
+                List<Character> list =new ArrayList<>();
+                for(char ch:s.toCharArray())
+                if(ch>='A'&&ch<='Z')
+                    list.add(ch);
+                map.put(s, list);
+                set.add(s);
             }
-            map.put(item,words.get(i));
+            Collections.sort(set, new Comparator<String>() {
+
+                @Override
+                public int compare(String o1, String o2) {
+                    StringBuilder first =new StringBuilder(),second =new StringBuilder();
+                    for(int i=0;i<o1.length();i++) if(o1.charAt(i)>='A'&&o1.charAt(i)<='Z')
+                        first.append(o1.charAt(i));
+                    for(int i=0;i<o2.length();i++) if(o2.charAt(i)>='A'&&o2.charAt(i)<='Z')
+                        second.append(o2.charAt(i));
+                    return first.toString().compareTo(second.toString());
+                }
+            });
+            String pattern1 = sc.next();
+            List<Character> pattern = new ArrayList<Character>();
+            for(char ch:pattern1.toCharArray())
+                pattern.add(ch);
+            boolean flag = true;
+            for(String word:set) {
+                int i=0;
+                for(Character ch:map.get(word))
+                    if(ch==pattern1.charAt(i)) {
+                        if(i++==pattern1.length()-1){
+                            System.out.print(word+" ");
+                            flag = false;
+                            break;
+                        }
+                    }
+                    else 
+                        break;
+                
+            }
+            if(flag)
+                System.out.println("No match found");
+            else
+                System.out.println();
         }
-        if(map.containsKey(pattern))
-            return map.get(pattern);
-        else
-            return "No match found";
+
     }
 }
